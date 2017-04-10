@@ -12,13 +12,18 @@ RUN git clone https://github.com/simulationcraft/simc \
     && mv /simc/engine/simc /usr/local/bin/simc \
     && cd / \
     && rm -fr /simc \
-    && apt-get remove gcc g++ make \
+    && mkdir -p /profiles \
+    && mkdir -p /outputs \
+    && apt-get remove -qy gcc g++ make \
     && apt-get clean -qy \
     && apt-get autoclean -qy \
     && apt-get autoremove -qy \
     && apt-get purge -qy \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && rm -rf /var/lib/{apt,dpkg,cache,log}
+
+VOLUME /profiles
+VOLUME /outputs
 
 ENTRYPOINT [ "/usr/local/bin/simc" ]
 
